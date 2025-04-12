@@ -1,0 +1,19 @@
+theme: minima
+author: Yuan Kefan
+# Site settings
+title: YuanKefan Personal Website  
+email: 12210356@mail.sustech.edu.cn  
+description: A blog about data science and web development.
+baseurl: "/skills-github-pages" # the subpath of your site
+url: "https://ykf520.github.io" # the base hostname & protocol for your site
+github_username: ykf520
+
+# Build settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+
+# Collections
+collections:
+  posts:
+    output: true

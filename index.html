@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-生存分析报告" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/04/13/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/" class="article-date">
+  <time class="dt-published" datetime="2025-04-13T11:18:32.000Z" itemprop="datePublished">2025-04-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/04/13/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/">生存分析报告</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="生存分析报告"><a href="#生存分析报告" class="headerlink" title="生存分析报告"></a>生存分析报告</h1><p><strong>12210356 袁可帆</strong></p>
+<p>本报告使用 IBM电信客户流失数据集，通过生存分析方法研究客户流失行为。生存分析是研究事件发生时间分布的统计方法，在本案例中用于预测客户流失时间并计算客户生命周期价值(CLV)。</p>
+<h2 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1. 数据准备"></a>1. 数据准备</h2><p>数据来源于IBM提供的电信客户流失数据集，包含客户的人口统计信息、服务计划、媒体使用情况和订阅状态。关键变量包括客户在公司停留的月数(tenure)和客户是否仍在订阅(churn)。数据预处理部分，数据被存储为DeltaLake的青铜表和银表。银表对原始数据进行了清洗和筛选，例如过滤出月度合同的互联网用户。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyspark.sql <span class="keyword">import</span> SparkSession</span><br><span class="line"><span class="keyword">from</span> pyspark.sql.functions <span class="keyword">import</span> col, when</span><br><span class="line"><span class="keyword">from</span> pyspark.sql.types <span class="keyword">import</span> StructType, StructField, StringType, DoubleType</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 SparkSession</span></span><br><span class="line">spark = SparkSession.builder.appName(<span class="string">&quot;TelcoChurnAnalysis&quot;</span>).getOrCreate()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义数据结构</span></span><br><span class="line">schema = StructType([</span><br><span class="line">    StructField(<span class="string">&#x27;customerID&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;gender&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;seniorCitizen&#x27;</span>, DoubleType()),</span><br><span class="line">    StructField(<span class="string">&#x27;partner&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;dependents&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;tenure&#x27;</span>, DoubleType()),</span><br><span class="line">    StructField(<span class="string">&#x27;phoneService&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;multipleLines&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;internetService&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;onlineSecurity&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;onlineBackup&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;deviceProtection&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;techSupport&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;streamingTV&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;streamingMovies&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;contract&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;paperlessBilling&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;paymentMethod&#x27;</span>, StringType()),</span><br><span class="line">    StructField(<span class="string">&#x27;monthlyCharges&#x27;</span>, DoubleType()),</span><br><span class="line">    StructField(<span class="string">&#x27;totalCharges&#x27;</span>, DoubleType()),</span><br><span class="line">    StructField(<span class="string">&#x27;churn&#x27;</span>, StringType())</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取数据</span></span><br><span class="line">bronze_df = spark.read.<span class="built_in">format</span>(<span class="string">&#x27;csv&#x27;</span>).schema(schema).option(<span class="string">&#x27;header&#x27;</span>,<span class="string">&#x27;true&#x27;</span>).load(<span class="string">&#x27;Telco-Customer-Churn.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据预处理</span></span><br><span class="line">silver_df = bronze_df.withColumn(<span class="string">&#x27;churn&#x27;</span>, when(col(<span class="string">&#x27;churn&#x27;</span>)==<span class="string">&#x27;Yes&#x27;</span>, <span class="number">1</span>).when(col(<span class="string">&#x27;churn&#x27;</span>)==<span class="string">&#x27;No&#x27;</span>, <span class="number">0</span>).otherwise(<span class="string">&#x27;Unknown&#x27;</span>))</span><br><span class="line">silver_df = silver_df.drop(<span class="string">&#x27;churnString&#x27;</span>)</span><br><span class="line">silver_df = silver_df(<span class="string">&#x27;contract&#x27;</span>)==<span class="string">&#x27;Month-to-month&#x27;</span>)</span><br><span class="line">silver_df = silver_df.<span class="built_in">filter</span>(col(<span class="string">&#x27;internetService&#x27;</span>)!=<span class="string">&#x27;No&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Kaplan-Meier方法"><a href="#2-Kaplan-Meier方法" class="headerlink" title="2. Kaplan-Meier方法"></a>2. Kaplan-Meier方法</h2><p>Kaplan-Meier方法用于构建生存概率曲线，评估客户流失的时间分布。以下是基于不同变量的生存曲线分析结果:</p>
+<h3 id="2-1-性别-Gender"><a href="#2-1-性别-Gender" class="headerlink" title="2.1 性别(Gender)"></a>2.1 性别(Gender)</h3><p>以性别为例进行分析。</p>
+<p><img src="/images/132700.png" alt="屏幕截图"></p>
+<p>生存曲线显示，男性和女性客户的流失概率随时间变化的趋势相似。Log-rank检验的p值为0.204476，表明性别对客户流失没有显著影响。</p>
+<h3 id="2-2-其他变量分析"><a href="#2-2-其他变量分析" class="headerlink" title="2.2 其他变量分析"></a>2.2 其他变量分析</h3><p>其他变量如高级公民状态、伴侣状态、是否有受抚养人等对客户流失的影响也进行了分析，图表不再列出。具体结果如下表所示:</p>
+<p>其中支付方式有多个变量,图表和表格分析如下,可知部分支付方式对客户流失有显著影响:</p>
+<p><strong>表1: Kaplan-Meier方法分析结果</strong></p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>Log-rank p值</th>
+<th>是否显著影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高级公民</td>
+<td>2.523624e-12</td>
+<td>是</td>
+</tr>
+<tr>
+<td>伴侣</td>
+<td>.063437e-58</td>
+<td>是</td>
+</tr>
+<tr>
+<td>受抚养人</td>
+<td>0.000251</td>
+<td>是</td>
+</tr>
+<tr>
+<td>电话服务</td>
+<td>0.377599</td>
+<td>否</td>
+</tr>
+<tr>
+<td>多条线路</td>
+<td>3.190116e-11</td>
+<td>是</td>
+</tr>
+<tr>
+<td>互联网服务</td>
+<td>2.369872e-20</td>
+<td>是</td>
+</tr>
+<tr>
+<td>流媒体电视</td>
+<td>1.813974e-32</td>
+<td>是</td>
+</tr>
+<tr>
+<td>流媒体电影</td>
+<td>6.484901e-39</td>
+<td>是</td>
+</tr>
+<tr>
+<td>在线安全</td>
+<td>3.138886e-18</td>
+<td>是</td>
+</tr>
+<tr>
+<td>在线备份</td>
+<td>2.620909e-67</td>
+<td>是</td>
+</tr>
+<tr>
+<td>设备保护</td>
+<td>7.904692e-39</td>
+<td>是</td>
+</tr>
+<tr>
+<td>技术支持</td>
+<td>3.468692e-07</td>
+<td>是</td>
+</tr>
+<tr>
+<td>无纸化账单</td>
+<td>5.000937e-07</td>
+<td>是</td>
+</tr>
+<tr>
+<td>支付方式</td>
+<td>——</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<p><img src="/images/132851.png" alt="屏幕截图"></p>
+<h2 id="3-Cox比例风险模型"><a href="#3-Cox比例风险模型" class="headerlink" title="3. Cox比例风险模型"></a>3. Cox比例风险模型</h2><p>Cox比例风险模型用于进行多变量分析，评估不同变量对客户流失风险的影响。模型的一致性指数为 0.64,表明模型具有中等的预测能力。显著变量包括 dependents_Yes、internetService_DSL、onlineBackup_Yes和techSupport_Yes。然而，internetService_DSL、onlineBackup_Yes和techSupport_Yes违反了比例风险假设。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lifelines <span class="keyword">import</span> CoxPHFitter</span><br><span class="line"></span><br><span class="line"><span class="comment"># 独热编码</span></span><br><span class="line">encode_cols = [<span class="string">&#x27;dependents&#x27;</span>,<span class="string">&#x27;internetService&#x27;</span>,<span class="string">&#x27;onlineBackup&#x27;</span>,<span class="string">&#x27;techSupport&#x27;</span>, <span class="string">&#x27;paperlessBilling&#x27;</span>]</span><br><span class="line">encoded_pd = pd.get_dummies(telco_pd, columns=encode_cols, prefix=encode_cols, drop_first=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拟合 Cox比例风险模型</span></span><br><span class="line">cph = CoxPHFitter(alpha=<span class="number">0.05</span>)</span><br><span class="line">cph.fit(encoded_pd, duration_col=<span class="string">&#x27;tenure&#x27;</span>, event_col=<span class="string">&#x27;churn&#x27;</span>)</span><br><span class="line">cph.print_summary()</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-风险比-Hazard-Ratios-图"><a href="#3-1-风险比-Hazard-Ratios-图" class="headerlink" title="3.1 风险比(Hazard Ratios)图"></a>3.1 风险比(Hazard Ratios)图</h3><p><img src="/images/132916.png" alt="屏幕截图"></p>
+<p>从图中可以看出，’internetService_DSL’、’dependents_Yes’、’techSupport_Yes’和’onlineBackup_Yes’的风险比均小于1，表明这些变量与客户流失的较低风险相关。</p>
+<h3 id="3-2-Schoenfeld残差图"><a href="#3-2-Schoenfeld残差图" class="headerlink" title="3.2 Schoenfeld残差图"></a>3.2 Schoenfeld残差图</h3><p><img src="/images/132928.png" alt="屏幕截图"></p>
+<p>Scaled Schoenfeld residuals of ‘dependents_Yes’</p>
+<p><img src="/images/132935.png" alt="屏幕截图"></p>
+<p>Scaled Schoenfeld residuals of ‘internetService_DSL’</p>
+<p><img src="/images/132941.png" alt="屏幕截图"></p>
+<p>Scaled Schoenfeld residuals of ‘onlineBackup_Yes’</p>
+<p><img src="/images/132945.png" alt="屏幕截图"></p>
+<p>Scaled Schoenfeld residuals of ‘techSupport_Yes<br>从Schoenfeld残差图中可以看出，’onlineBackup_Yes’和’techSupport_Yes’的残差图显示出明显的趋势，表明这些变量可能违反了比例风险假设。</p>
+<h3 id="3-3-对数对数生存函数图"><a href="#3-3-对数对数生存函数图" class="headerlink" title="3.3 对数对数生存函数图"></a>3.3 对数对数生存函数图</h3><p><img src="/images/132952.png" alt="屏幕截图"></p>
+<p><img src="/images/132958.png" alt="屏幕截图"></p>
+<p><img src="/images/133003.png" alt="屏幕截图"></p>
+<p><img src="/images/133009.png" alt="屏幕截图"></p>
+<p>对数对数生存函数图进一步证实了’onlineBackup_Yes’和’techSupport_Yes’的曲线显示出明显的非平行趋势，表明这些变量可能违反了比例风险假设。</p>
+<h2 id="4-加速失效时间模型-AFT"><a href="#4-加速失效时间模型-AFT" class="headerlink" title="4. 加速失效时间模型(AFT)"></a>4. 加速失效时间模型(AFT)</h2><p>加速失效时间模型通过参数化方法建模客户流失时间。模型的协变量一致性指数为0.73，表明模型具有较好的预测能力。显著影响客户流失的变量包括设备保护、互联网服务、在线安全、在线备份、技术支持和支付方式。</p>
+<h3 id="4-1-加速失效时间模型系数图"><a href="#4-1-加速失效时间模型系数图" class="headerlink" title="4.1 加速失效时间模型系数图"></a>4.1 加速失效时间模型系数图</h3><p><img src="/images/133021.png" alt="屏幕截图"></p>
+<p>从图中可以看出，<code>Intercept: alpha_</code>的系数最大，表明其对客户流失时间的影响最大。其他变量如<code>onlineSecurity_Yes: alpha</code>、<code>onlineBackup_Yes: alpha</code>、<code>techSupport_Yes: alpha</code>等也对客户流失时间有显著影响。</p>
+<h3 id="4-2-Kaplan-Meier-Log-Odds-Plot"><a href="#4-2-Kaplan-Meier-Log-Odds-Plot" class="headerlink" title="4.2 Kaplan-Meier Log-Odds Plot"></a>4.2 Kaplan-Meier Log-Odds Plot</h3><p><img src="/images/133028.png" alt="屏幕截图"></p>
+<p><img src="/images/133024.png" alt="屏幕截图"></p>
+<p><img src="/images/133039.png" alt="屏幕截图"></p>
+<p><img src="/images/133045.png" alt="屏幕截图"></p>
+<p><img src="/images/133052.png" alt="屏幕截图"></p>
+<p><img src="/images/133057.png" alt="屏幕截图"></p>
+<p><img src="/images/133103.png" alt="屏幕截图"></p>
+<p><img src="/images/133109.png" alt="屏幕截图"></p>
+<p>从图中可以看出，对于’partner’、’multipleLines’、’internetService’、’onlineSecurity’、’onlineBackup’、’deviceProtection’和’techSupport’等变量，不同组别(如Yes和No)的失败几率随时间的变化趋势不同，这表明这些变量对客户流失的影响显著。</p>
+<h2 id="5-客户生命周期价值-CLV-计算"><a href="#5-客户生命周期价值-CLV-计算" class="headerlink" title="5. 客户生命周期价值(CLV)计算"></a>5. 客户生命周期价值(CLV)计算</h2><p>客户生命周期价值(CLV)是指一个客户在其整个生命周期内为企业带来的预期净现值(NPV)。通过生存分析模型的输出，我们计算了客户的生存概率，并将其应用于客户生命周期价值的计算。假设每个客户的月度利润为30美元，内部收益率(IRR)设定为10%(年化)，用于计算净现值(NPV)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义计算 NPV的函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_npv</span>(<span class="params">survival_prob, monthly_profit, irr</span>):</span><br><span class="line">    npv = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i, prob <span class="keyword">in</span> <span class="built_in">enumerate</span>(survival_prob):</span><br><span class="line">        npv += monthly_profit * prob / ((<span class="number">1</span> + irr / <span class="number">12</span>) ** i)</span><br><span class="line">    <span class="keyword">return</span> npv</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算每个月的生存概率</span></span><br><span class="line">survival_prob = cph.predict_survival_function(encoded_pd).mean(axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设的月度利润和内部收益率</span></span><br><span class="line">monthly_profit = <span class="number">30</span></span><br><span class="line">irr = <span class="number">0.10</span>  <span class="comment"># 年化内部收益率</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算每个月的累计 NPV</span></span><br><span class="line">cumulative_npv = [calculate_npv(survival_prob[:i+<span class="number">1</span>], monthly_profit, irr) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(survival_prob))]</span><br></pre></td></tr></table></figure>
+
+<p>通过上述代码，我们计算了每个月的累计净现值(NPV)。以下是计算结果的可视化展示:</p>
+<h3 id="5-1-不同合同期限的累计净现值-NPV"><a href="#5-1-不同合同期限的累计净现值-NPV" class="headerlink" title="5.1 不同合同期限的累计净现值(NPV)"></a>5.1 不同合同期限的累计净现值(NPV)</h3><p><img src="/images/133124.png" alt="屏幕截图"></p>
+<p>从图中可以看出，随着合同期限的延长，客户的累计NPV显著增加。这表明，长期合同能够为企业带来更多的经济收益。</p>
+<h3 id="5-2-生存概率图"><a href="#5-2-生存概率图" class="headerlink" title="5.2 生存概率图"></a>5.2 生存概率图</h3><p><img src="/images/133131.png" alt="屏幕截图"></p>
+<p>从图中可以看出，生存概率随着合同月份的增加而逐渐下降，这表明随着时间的推移，客户流失的风险逐渐增加。</p>
+<h3 id="5-3-业务应用建议"><a href="#5-3-业务应用建议" class="headerlink" title="5.3 业务应用建议"></a>5.3 业务应用建议</h3><p>通过生存分析模型计算客户生命周期价值，可以为企业提供以下业务应用建议:</p>
+<ul>
+<li><strong>优化客户保留策略</strong>：通过提高客户保留率，特别是在早期阶段，可以显著提升客户的累计NPV。</li>
+<li><strong>平衡客户获取成本(CAC)与客户生命周期价值(CLV)</strong>：通过分析客户生命周期价值，企业可以更好地评估客户获取成本的合理性，从而提高整体业务盈利能力。</li>
+</ul>
+<h2 id="6-结论"><a href="#6-结论" class="headerlink" title="6. 结论"></a>6. 结论</h2><p>生存分析方法的选择需考虑模型假设和业务目标。Kaplan-Meier方法适合单变量分析，Cox模型适合多变量分析，AFT模型适合参数化建模。生存分析的结果可以用于优化客户保留策略、预测客户流失时间以及计算客户生命周期价值。未来可以进一步探索Cox模型的改进方法，并将生存分析结果应用于更广泛的业务决策中。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/04/13/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/" data-id="cm9fks8vp0001lo9d1xve27kv" data-title="生存分析报告" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/04/13/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2025-04-13T11:16:18.132Z" itemprop="datePublished">2025-04-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/04/13/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/04/13/hello-world/" data-id="cm9fks8vm0000lo9daloacd7s" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/13/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/">生存分析报告</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/13/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
